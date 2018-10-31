@@ -1,10 +1,9 @@
-== Overview
+== 概述
 
-This describes the resources that make up the official GitHub REST API v3. If you have any problems or requests, please contact
-https://github.com/contact[GitHub Support]
-.
+本文档是GitHub官方REST API v3文档的翻译。
+如果您有任何问题或要求，请联系 https://github.com/contact[GitHub支持]。
 
-... <<CurrentVersion,Current version>>
+... <<CurrentVersion,当前版本>>
 ... <<Schema,Schema>>
 ... <<Authentication,Authentication>>
 ... <<Parameters,Parameters>>
@@ -24,24 +23,17 @@ https://github.com/contact[GitHub Support]
 
 
 [[CurrentVersion]]
-=== Current version
+=== 当前版本
 
-By default, all requests to `+https://api.github.com+` receive the v3
-https://developer.github.com/v3/versions[version]
-of the REST API. We encourage you to
-https://developer.github.com/v3/media/#request-specific-version[explicitly request this version via the `Accept` header]
-.
-
+默认情况下，对 `+https://api.github.com+` 的所有请求都会发送到REST API的v3 https://developer.github.com/v3/versions[版本]。
+我们建议您通过 https://developer.github.com/v3/media/#request-specific-version[`+Accept+` 标记请求头明确请求此版本]。
 
 ....
 Accept: application/vnd.github.v3+json
 ....
 
-For information about GitHub's GraphQL API v4, see the
-https://developer.github.com/v4[v4 documentation]
-. For information about migrating to GraphQL, see "
-https://developer.github.com/v4/guides/migrating-from-rest/[Migrating from REST]
-."
+有关GitHub的GraphQL API v4的信息，请参阅 https://developer.github.com/v4[v4文档]。
+有关迁移到GraphQL的信息，请参阅“ https://developer.github.com/v4/guides/migrating-from-rest/[从REST迁移] ”。
 
 [[Schema]]
 === Schema
