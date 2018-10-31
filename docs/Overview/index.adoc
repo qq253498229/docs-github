@@ -4,8 +4,8 @@
 如果您有任何问题或要求，请联系 https://github.com/contact[GitHub支持]。
 
 ... <<CurrentVersion,当前版本>>
-... <<Schema,架构>>
-... <<Authentication,Authentication>>
+... <<Schema,结构>>
+... <<Authentication,认证>>
 ... <<Parameters,Parameters>>
 ... <<RootEndpoint,Root endpoint>>
 ... <<GraphQLGlobalNodeIDs,GraphQL global node IDs>>
@@ -36,7 +36,7 @@ Accept: application/vnd.github.v3+json
 有关迁移到GraphQL的信息，请参阅“ https://developer.github.com/v4/guides/migrating-from-rest/[从REST迁移] ”。
 
 [[Schema]]
-=== 架构
+=== 结构
 
 所有API访问均使用HTTPS协议，并可从 `+https://api.github.com+` 进行访问。 所有数据都以JSON的形式发送和接收。
 
@@ -69,80 +69,69 @@ YYYY-MM-DDTHH:MM:SSZ
 
 有关时间戳中时区的详细信息，请参阅此 https://developer.github.com/v3/#timezones[部分]。
 
-==== Summary representations
+==== 结构摘要
 
-When you fetch a list of resources, the response includes a subset of the attributes for that resource. This is the "summary" representation of the resource. (Some attributes are computationally expensive for the API to provide. For performance reasons, the summary representation excludes those attributes. To obtain those attributes, fetch the "detailed" representation.)
+获取资源列表时，响应包括该资源的属性子集。 这是资源的“摘要”表示。
+(某些属性在API上提供的计算成本很高。出于性能原因，摘要表示会排除这些属性。要获取这些属性，请获取“详细”资源。)
 
-Example: When you get a list of repositories, you get the summary representation of each repository. Here, we fetch the list of repositories owned by the
-https://github.com/octokit[octokit]
-organization:
+例如:获取存储库列表后，您将获得每个存储库的摘要表示。 在这里，我们获取 https://github.com/octokit[octokit] 组织拥有的存储库列表：
 
 ....
 GET /orgs/octokit/repos
 ....
 
-==== Detailed representations
+==== 结构详情
 
-When you fetch an individual resource, the response typically includes all attributes for that resource. This is the "detailed" representation of the resource. (Note that authorization sometimes influences the amount of detail included in the representation.)
+获取单个资源时，响应通常包括该资源的所有属性。 这是资源的“详细”表示。
+(请注意，授权有时会影响表示中包含的详细信息量。)
 
-Example: When you get an individual repository, you get the detailed representation of the repository. Here, we fetch the
-https://github.com/octokit/octokit.rb[octokit/octokit.rb]
-repository:
+例如:获取单个存储库后，您将获得存储库的详细表示。 在这里，我们获取 https://github.com/octokit/octokit.rb[octokit/octokit.rb] 存储库：
 
 ....
 GET /repos/octokit/octokit.rb
 ....
 
-The documentation provides an example response for each API method. The example response illustrates all attributes that are returned by that method.
+该文档提供了每种API方法的示例响应。 示例响应说明了该方法返回的所有属性。
 
 [[Authentication]]
-=== Authentication
+=== 认证
 
-There are three ways to authenticate through GitHub API v3. Requests that require authentication will return
-`404 Not Found`
-, instead of
-`403 Forbidden`
-, in some places. This is to prevent the accidental leakage of private repositories to unauthorized users.
+有三种方法可以通过GitHub API v3进行身份验证。 在某些地方，需要身份验证的请求将返回 `404 Not Found` ，而不是 `403 Forbidden` 。 这是为了防止私有存储库意外泄露给未经授权的用户。
 
-==== Basic authentication
+==== 基本认证方式
 
 ....
 curl -u "username" https://api.github.com
 ....
 
-==== OAuth2 token (sent in a header)
+==== OAuth2 token方式 (在header中发送)
 
 ....
 curl -H "Authorization: token OAUTH-TOKEN" https://api.github.com
 ....
 
-==== OAuth2 token (sent as a parameter)
+==== OAuth2 token方式 (参数形式发送)
 
 ....
 curl https://api.github.com/?access_token=OAUTH-TOKEN
 ....
 
-Read
-https://developer.github.com/apps/building-integrations/setting-up-and-registering-oauth-apps/[more about OAuth2]
-. Note that OAuth2 tokens can be
-https://developer.github.com/v3/oauth_authorizations/#create-a-new-authorization[acquired programmatically]
-, for applications that are not websites.
+阅读 https://developer.github.com/apps/building-integrations/setting-up-and-registering-oauth-apps/[有关OAuth2的更多信息] 。
+请注意，对于非网站的应用程序，可以 https://developer.github.com/v3/oauth_authorizations/#create-a-new-authorization[通过编程方式获取] OAuth2令牌。
 
-==== OAuth2 key/secret
+==== OAuth2 key/secret方式
 
 ....
 curl 'https://api.github.com/users/whatever?client_id=xxxx&client_secret=yyyy'
 ....
 
-This should only be used in server to server scenarios. Don't leak your OAuth application's client secret to your users.
+这种方式仅被用于服务器到服务器方案。 不要将OAuth应用程序的客户端密钥泄露给您的用户。
 
-Read
-https://developer.github.com/v3/#increasing-the-unauthenticated-rate-limit-for-oauth-applications[more about unauthenticated rate limiting]
-.
+阅读 https://developer.github.com/v3/#increasing-the-unauthenticated-rate-limit-for-oauth-applications[更多关于未经验证的速率限制]。
 
-==== Failed login limit
+==== 登录失败的限制
 
-Authenticating with invalid credentials will return `401 Unauthorized`:
+使用无效凭据进行身份验证将返回 `401 Unauthorized`：
 
 ....
 curl -i https://api.github.com -u foo:bar
@@ -154,9 +143,7 @@ HTTP/1.1 401 Unauthorized
 }
 ....
 
-After detecting several requests with invalid credentials within a short period, the API will temporarily reject all authentication attempts for that user (including ones with valid credentials) with
-`403 Forbidden`
-:
+在短时间内检测到多个具有无效凭据的请求后，API将暂时拒绝该用户的所有身份验证尝试（包括具有有效凭据的身份验证）和 `403 Forbidden`：
 
 ....
 curl -i https://api.github.com -u valid_username:valid_password
@@ -169,44 +156,42 @@ HTTP/1.1 403 Forbidden
 ....
 
 [[Parameters]]
-=== Parameters
+=== 参数
 
-Many API methods take optional parameters. For `GET` requests, any parameters not specified as a segment in the path can be passed as an HTTP query string parameter:
+许多API方法都采用可选参数。 对于GET请求，未包含在路径中任何字符串都可以作为参数传递：
 
 ....
 curl -i "https://api.github.com/repos/vmg/redcarpet/issues?state=closed"
 ....
 
-In this example, the 'vmg' and 'redcarpet' values are provided for the `:owner` and `:repo` parameters in the path while `:state` is passed in the query string.
+在此示例中，为路径中的 `vmg` 和 `redcarpet` 参数提供 `:owner` 和 `:repo` 的值，而在查询字符串中传递 `:state` 。
 
-For `POST`, `PATCH`, `PUT`, and `DELETE` requests, parameters not included in the URL should be encoded as JSON with a Content-Type of 'application/json':
+对于 `POST` ， `PATCH` ， `PUT` 和 `DELETE` 请求，URL中未包含的参数应编码为JSON，其Content-Type为'application/json':
 
 ....
 curl -i -u username -d '{"scopes":["public_repo"]}' https://api.github.com/authorizations
 ....
 
 [[RootEndpoint]]
-=== Root endpoint
+=== 根端点
 
-You can issue a `GET` request to the root endpoint to get all the endpoint categories that the REST API v3 supports:
+您可以向根端点发出 `GET` 请求，以获取REST API v3支持的所有端点类别：
 
 ....
 curl https://api.github.com
 ....
 
 [[GraphQLGlobalNodeIDs]]
-=== GraphQL global node IDs
+=== GraphQL全局节点IDs
 
-See the guide on "
-https://developer.github.com/v4/guides/using-global-node-ids[Using Global Node IDs]
-" for detailed information about how to find `node_ids` via the REST API v3 and use them in GraphQL operations.
+有关如何通过REST API v3查找node_ids并在GraphQL操作中使用它们的详细信息，请参阅“ https://developer.github.com/v4/guides/using-global-node-ids[使用全局节点IDs] ”指南。
 
 [[ClientErrors]]
-=== Client errors
+=== 客户端错误
 
-There are three possible types of client errors on API calls that receive request bodies:
+接收请求主体的API调用有三种可能的客户端错误类型：
 
-1.Sending invalid JSON will result in a `400 Bad Request` response.
+1.发送无效的JSON会返回 `400 Bad Request`。
 
 ....
 HTTP/1.1 400 Bad Request
@@ -215,7 +200,7 @@ Content-Length: 35
 {"message":"Problems parsing JSON"}
 ....
 
-2.Sending the wrong type of JSON values will result in a `400 Bad Request` response.
+2.发送错误类型的JSON值会返回 `400 Bad Request`。
 
 ....
 HTTP/1.1 400 Bad Request
@@ -224,7 +209,7 @@ Content-Length: 40
 {"message":"Body should be a JSON object"}
 ....
 
-3.Sending invalid fields will result in a `422 Unprocessable Entity` response.
+3.发送无效字段将返回 `422 Unprocessable Entity`。
 
 ....
 HTTP/1.1 422 Unprocessable Entity
@@ -242,28 +227,29 @@ Content-Length: 149
 }
 ....
 
+所有错误对象都具有资源和字段属性，以便客户端可以知道问题所在。 还有一个错误代码，让您知道该字段有什么问题。 这些是有可能出现的验证错误代码：
+
 All error objects have resource and field properties so that your client can tell what the problem is. There's also an error code to let you know what is wrong with the field. These are the possible validation error codes:
 
 [%header,cols=2*]
 |===
-|Error Name
-|Description
+|错误名
+|描述
 
 |missing
-|This means a resource does not exist.
+|这意味着资源不存在。
 
 |missing_field
-|This means a required field on a resource has not been set.
+|这意味着尚未设置资源上的必填字段。
 
 |invalid
-|This means the formatting of a field is invalid. The documentation for that resource should be able to give you more specific information.
+|这意味着字段的格式无效。 该资源的文档应该能够为您提供更具体的信息。
 
 |already_exists
-|This means another resource has the same value as this field. This can happen in resources that must have some unique key (such as Label names).
+|这意味着另一个资源与此字段具有相同的值。 这可能发生在必须具有某些唯一键（例如名为Label）的资源中。
 |===
 
-Resources may also send custom validation errors (where `code` is `custom`).
-Custom errors will always have a `message` field describing the error, and most errors will also include a `documentation_url` field pointing to some content that might help you resolve the error.
+资源也可能发送自定义验证错误（ `代码` 是 `自定义` 的）。 自定义错误将始终有描述错误的 `message` 字段，并且大多数错误还将包括一个 `documentation_url` 字段，该字段指向可能有助于您解决错误的某些内容。
 
 [[HTTPRedirects]]
 === HTTP redirects
