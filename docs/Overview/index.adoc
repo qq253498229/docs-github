@@ -4,23 +4,23 @@ This describes the resources that make up the official GitHub REST API v3. If yo
 https://github.com/contact[GitHub Support]
 .
 
-* <<CurrentVersion,Current version>>
-* <<Schema,Schema>>
-* <<Authentication,Authentication>>
-* <<Parameters,Parameters>>
-* <<RootEndpoint,Root endpoint>>
-* <<GraphQLGlobalNodeIDs,GraphQL global node IDs>>
-* <<ClientErrors,Client errors>>
-* <<HTTPRedirects,HTTP redirects>>
-* <<HTTPVerbs,HTTP verbs>>
-* <<Hypermedia,Hypermedia>>
-* <<Pagination,Pagination>>
-* <<RateLimiting,Rate limiting>>
-* <<UserAgentRequired,User agent required>>
-* <<ConditionalRequests,Conditional requests>>
-* <<CrossOriginResourceSharing,Cross origin resource sharing>>
-* <<JSON-PCallbacks,JSON-P callbacks>>
-* <<Timezones,Timezones>>
+... <<CurrentVersion,Current version>>
+... <<Schema,Schema>>
+... <<Authentication,Authentication>>
+... <<Parameters,Parameters>>
+... <<RootEndpoint,Root endpoint>>
+... <<GraphQLGlobalNodeIDs,GraphQL global node IDs>>
+... <<ClientErrors,Client errors>>
+... <<HTTPRedirects,HTTP redirects>>
+... <<HTTPVerbs,HTTP verbs>>
+... <<Hypermedia,Hypermedia>>
+... <<Pagination,Pagination>>
+... <<RateLimiting,Rate limiting>>
+... <<UserAgentRequired,User agent required>>
+... <<ConditionalRequests,Conditional requests>>
+... <<CrossOriginResourceSharing,Cross origin resource sharing>>
+... <<JSON-PCallbacks,JSON-P callbacks>>
+... <<Timezones,Timezones>>
 
 
 [[CurrentVersion]]
