@@ -4,7 +4,7 @@
 如果您有任何问题或要求，请联系 https://github.com/contact[GitHub支持]。
 
 ... <<CurrentVersion,当前版本>>
-... <<Schema,Schema>>
+... <<Schema,架构>>
 ... <<Authentication,Authentication>>
 ... <<Parameters,Parameters>>
 ... <<RootEndpoint,Root endpoint>>
@@ -36,11 +36,9 @@ Accept: application/vnd.github.v3+json
 有关迁移到GraphQL的信息，请参阅“ https://developer.github.com/v4/guides/migrating-from-rest/[从REST迁移] ”。
 
 [[Schema]]
-=== Schema
+=== 架构
 
-All API access is over HTTPS, and accessed from
-`+https://api.github.com+`
-. All data is sent and received as JSON.
+所有API访问均使用HTTPS协议，并可从 `+https://api.github.com+` 进行访问。 所有数据都以JSON的形式发送和接收。
 
 ----
 curl -i https://api.github.com/users/octocat/orgs
@@ -61,17 +59,15 @@ Cache-Control: max-age=0, private, must-revalidate
 X-Content-Type-Options: nosniff
 ----
 
-Blank fields are included as `null` instead of being omitted.
+空白字段包含为 `null` 而不是被省略。
 
-All timestamps return in ISO 8601 format:
+所有时间戳均以ISO 8601格式返回:
 
 ....
 YYYY-MM-DDTHH:MM:SSZ
 ....
 
-For more information about time zones in timestamps, see this
-https://developer.github.com/v3/#timezones[section]
-.
+有关时间戳中时区的详细信息，请参阅此 https://developer.github.com/v3/#timezones[部分]。
 
 ==== Summary representations
 
