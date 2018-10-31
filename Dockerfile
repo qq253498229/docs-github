@@ -1,5 +1,7 @@
 FROM ubuntu:16.04 as builder
 
+RUN apt-get update && apt-get install -y tzdata && ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
+
 WORKDIR /app
 
 RUN apt-get update && apt-get install -y asciidoctor
