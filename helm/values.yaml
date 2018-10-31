@@ -7,7 +7,7 @@ replicaCount: 1
 image:
   repository: registry.cn-beijing.aliyuncs.com/wangdali/github-api
   tag: latest
-  pullPolicy: IfNotPresent
+  pullPolicy: Always
 
 nameOverride: ""
 fullnameOverride: ""
