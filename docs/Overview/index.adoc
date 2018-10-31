@@ -6,10 +6,10 @@
 ... <<CurrentVersion,当前版本>>
 ... <<Schema,结构>>
 ... <<Authentication,认证>>
-... <<Parameters,Parameters>>
-... <<RootEndpoint,Root endpoint>>
-... <<GraphQLGlobalNodeIDs,GraphQL global node IDs>>
-... <<ClientErrors,Client errors>>
+... <<Parameters,参数>>
+... <<RootEndpoint,根端点>>
+... <<GraphQLGlobalNodeIDs,GraphQL全局节点IDs>>
+... <<ClientErrors,客户端错误>>
 ... <<HTTPRedirects,HTTP redirects>>
 ... <<HTTPVerbs,HTTP verbs>>
 ... <<Hypermedia,Hypermedia>>
