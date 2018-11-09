@@ -1,0 +1,1582 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 1.5.7.1">
+<meta name="author" content="大胃王">
+<title>Github Rest Api V3</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
+<style>
+/* Asciidoctor default stylesheet | MIT License | http://asciidoctor.org */
+/* Uncomment @import statement below to use as custom stylesheet */
+/*@import "https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700";*/
+article,aside,details,figcaption,figure,footer,header,hgroup,main,nav,section,summary{display:block}
+audio,canvas,video{display:inline-block}
+audio:not([controls]){display:none;height:0}
+script{display:none!important}
+html{font-family:sans-serif;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}
+a{background:transparent}
+a:focus{outline:thin dotted}
+a:active,a:hover{outline:0}
+h1{font-size:2em;margin:.67em 0}
+abbr[title]{border-bottom:1px dotted}
+b,strong{font-weight:bold}
+dfn{font-style:italic}
+hr{-moz-box-sizing:content-box;box-sizing:content-box;height:0}
+mark{background:#ff0;color:#000}
+code,kbd,pre,samp{font-family:monospace;font-size:1em}
+pre{white-space:pre-wrap}
+q{quotes:"\201C" "\201D" "\2018" "\2019"}
+small{font-size:80%}
+sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}
+sup{top:-.5em}
+sub{bottom:-.25em}
+img{border:0}
+svg:not(:root){overflow:hidden}
+figure{margin:0}
+fieldset{border:1px solid silver;margin:0 2px;padding:.35em .625em .75em}
+legend{border:0;padding:0}
+button,input,select,textarea{font-family:inherit;font-size:100%;margin:0}
+button,input{line-height:normal}
+button,select{text-transform:none}
+button,html input[type="button"],input[type="reset"],input[type="submit"]{-webkit-appearance:button;cursor:pointer}
+button[disabled],html input[disabled]{cursor:default}
+input[type="checkbox"],input[type="radio"]{box-sizing:border-box;padding:0}
+button::-moz-focus-inner,input::-moz-focus-inner{border:0;padding:0}
+textarea{overflow:auto;vertical-align:top}
+table{border-collapse:collapse;border-spacing:0}
+*,*::before,*::after{-moz-box-sizing:border-box;-webkit-box-sizing:border-box;box-sizing:border-box}
+html,body{font-size:100%}
+body{background:#fff;color:rgba(0,0,0,.8);padding:0;margin:0;font-family:"Noto Serif","DejaVu Serif",serif;font-weight:400;font-style:normal;line-height:1;position:relative;cursor:auto;tab-size:4;-moz-osx-font-smoothing:grayscale;-webkit-font-smoothing:antialiased}
+a:hover{cursor:pointer}
+img,object,embed{max-width:100%;height:auto}
+object,embed{height:100%}
+img{-ms-interpolation-mode:bicubic}
+.left{float:left!important}
+.right{float:right!important}
+.text-left{text-align:left!important}
+.text-right{text-align:right!important}
+.text-center{text-align:center!important}
+.text-justify{text-align:justify!important}
+.hide{display:none}
+img,object,svg{display:inline-block;vertical-align:middle}
+textarea{height:auto;min-height:50px}
+select{width:100%}
+.center{margin-left:auto;margin-right:auto}
+.stretch{width:100%}
+.subheader,.admonitionblock td.content>.title,.audioblock>.title,.exampleblock>.title,.imageblock>.title,.listingblock>.title,.literalblock>.title,.stemblock>.title,.openblock>.title,.paragraph>.title,.quoteblock>.title,table.tableblock>.title,.verseblock>.title,.videoblock>.title,.dlist>.title,.olist>.title,.ulist>.title,.qlist>.title,.hdlist>.title{line-height:1.45;color:#7a2518;font-weight:400;margin-top:0;margin-bottom:.25em}
+div,dl,dt,dd,ul,ol,li,h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6,pre,form,p,blockquote,th,td{margin:0;padding:0;direction:ltr}
+a{color:#2156a5;text-decoration:underline;line-height:inherit}
+a:hover,a:focus{color:#1d4b8f}
+a img{border:none}
+p{font-family:inherit;font-weight:400;font-size:1em;line-height:1.6;margin-bottom:1.25em;text-rendering:optimizeLegibility}
+p aside{font-size:.875em;line-height:1.35;font-style:italic}
+h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6{font-family:"Open Sans","DejaVu Sans",sans-serif;font-weight:300;font-style:normal;color:#ba3925;text-rendering:optimizeLegibility;margin-top:1em;margin-bottom:.5em;line-height:1.0125em}
+h1 small,h2 small,h3 small,#toctitle small,.sidebarblock>.content>.title small,h4 small,h5 small,h6 small{font-size:60%;color:#e99b8f;line-height:0}
+h1{font-size:2.125em}
+h2{font-size:1.6875em}
+h3,#toctitle,.sidebarblock>.content>.title{font-size:1.375em}
+h4,h5{font-size:1.125em}
+h6{font-size:1em}
+hr{border:solid #ddddd8;border-width:1px 0 0;clear:both;margin:1.25em 0 1.1875em;height:0}
+em,i{font-style:italic;line-height:inherit}
+strong,b{font-weight:bold;line-height:inherit}
+small{font-size:60%;line-height:inherit}
+code{font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;font-weight:400;color:rgba(0,0,0,.9)}
+ul,ol,dl{font-size:1em;line-height:1.6;margin-bottom:1.25em;list-style-position:outside;font-family:inherit}
+ul,ol{margin-left:1.5em}
+ul li ul,ul li ol{margin-left:1.25em;margin-bottom:0;font-size:1em}
+ul.square li ul,ul.circle li ul,ul.disc li ul{list-style:inherit}
+ul.square{list-style-type:square}
+ul.circle{list-style-type:circle}
+ul.disc{list-style-type:disc}
+ol li ul,ol li ol{margin-left:1.25em;margin-bottom:0}
+dl dt{margin-bottom:.3125em;font-weight:bold}
+dl dd{margin-bottom:1.25em}
+abbr,acronym{text-transform:uppercase;font-size:90%;color:rgba(0,0,0,.8);border-bottom:1px dotted #ddd;cursor:help}
+abbr{text-transform:none}
+blockquote{margin:0 0 1.25em;padding:.5625em 1.25em 0 1.1875em;border-left:1px solid #ddd}
+blockquote cite{display:block;font-size:.9375em;color:rgba(0,0,0,.6)}
+blockquote cite::before{content:"\2014 \0020"}
+blockquote cite a,blockquote cite a:visited{color:rgba(0,0,0,.6)}
+blockquote,blockquote p{line-height:1.6;color:rgba(0,0,0,.85)}
+@media screen and (min-width:768px){h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6{line-height:1.2}
+h1{font-size:2.75em}
+h2{font-size:2.3125em}
+h3,#toctitle,.sidebarblock>.content>.title{font-size:1.6875em}
+h4{font-size:1.4375em}}
+table{background:#fff;margin-bottom:1.25em;border:solid 1px #dedede}
+table thead,table tfoot{background:#f7f8f7}
+table thead tr th,table thead tr td,table tfoot tr th,table tfoot tr td{padding:.5em .625em .625em;font-size:inherit;color:rgba(0,0,0,.8);text-align:left}
+table tr th,table tr td{padding:.5625em .625em;font-size:inherit;color:rgba(0,0,0,.8)}
+table tr.even,table tr.alt,table tr:nth-of-type(even){background:#f8f8f7}
+table thead tr th,table tfoot tr th,table tbody tr td,table tr td,table tfoot tr td{display:table-cell;line-height:1.6}
+h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6{line-height:1.2;word-spacing:-.05em}
+h1 strong,h2 strong,h3 strong,#toctitle strong,.sidebarblock>.content>.title strong,h4 strong,h5 strong,h6 strong{font-weight:400}
+.clearfix::before,.clearfix::after,.float-group::before,.float-group::after{content:" ";display:table}
+.clearfix::after,.float-group::after{clear:both}
+*:not(pre)>code{font-size:.9375em;font-style:normal!important;letter-spacing:0;padding:.1em .5ex;word-spacing:-.15em;background-color:#f7f7f8;-webkit-border-radius:4px;border-radius:4px;line-height:1.45;text-rendering:optimizeSpeed;word-wrap:break-word}
+*:not(pre)>code.nobreak{word-wrap:normal}
+*:not(pre)>code.nowrap{white-space:nowrap}
+pre,pre>code{line-height:1.45;color:rgba(0,0,0,.9);font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;font-weight:400;text-rendering:optimizeSpeed}
+em em{font-style:normal}
+strong strong{font-weight:400}
+.keyseq{color:rgba(51,51,51,.8)}
+kbd{font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;display:inline-block;color:rgba(0,0,0,.8);font-size:.65em;line-height:1.45;background-color:#f7f7f7;border:1px solid #ccc;-webkit-border-radius:3px;border-radius:3px;-webkit-box-shadow:0 1px 0 rgba(0,0,0,.2),0 0 0 .1em white inset;box-shadow:0 1px 0 rgba(0,0,0,.2),0 0 0 .1em #fff inset;margin:0 .15em;padding:.2em .5em;vertical-align:middle;position:relative;top:-.1em;white-space:nowrap}
+.keyseq kbd:first-child{margin-left:0}
+.keyseq kbd:last-child{margin-right:0}
+.menuseq,.menuref{color:#000}
+.menuseq b:not(.caret),.menuref{font-weight:inherit}
+.menuseq{word-spacing:-.02em}
+.menuseq b.caret{font-size:1.25em;line-height:.8}
+.menuseq i.caret{font-weight:bold;text-align:center;width:.45em}
+b.button::before,b.button::after{position:relative;top:-1px;font-weight:400}
+b.button::before{content:"[";padding:0 3px 0 2px}
+b.button::after{content:"]";padding:0 2px 0 3px}
+p a>code:hover{color:rgba(0,0,0,.9)}
+#header,#content,#footnotes,#footer{width:100%;margin-left:auto;margin-right:auto;margin-top:0;margin-bottom:0;max-width:62.5em;*zoom:1;position:relative;padding-left:.9375em;padding-right:.9375em}
+#header::before,#header::after,#content::before,#content::after,#footnotes::before,#footnotes::after,#footer::before,#footer::after{content:" ";display:table}
+#header::after,#content::after,#footnotes::after,#footer::after{clear:both}
+#content{margin-top:1.25em}
+#content::before{content:none}
+#header>h1:first-child{color:rgba(0,0,0,.85);margin-top:2.25rem;margin-bottom:0}
+#header>h1:first-child+#toc{margin-top:8px;border-top:1px solid #ddddd8}
+#header>h1:only-child,body.toc2 #header>h1:nth-last-child(2){border-bottom:1px solid #ddddd8;padding-bottom:8px}
+#header .details{border-bottom:1px solid #ddddd8;line-height:1.45;padding-top:.25em;padding-bottom:.25em;padding-left:.25em;color:rgba(0,0,0,.6);display:-ms-flexbox;display:-webkit-flex;display:flex;-ms-flex-flow:row wrap;-webkit-flex-flow:row wrap;flex-flow:row wrap}
+#header .details span:first-child{margin-left:-.125em}
+#header .details span.email a{color:rgba(0,0,0,.85)}
+#header .details br{display:none}
+#header .details br+span::before{content:"\00a0\2013\00a0"}
+#header .details br+span.author::before{content:"\00a0\22c5\00a0";color:rgba(0,0,0,.85)}
+#header .details br+span#revremark::before{content:"\00a0|\00a0"}
+#header #revnumber{text-transform:capitalize}
+#header #revnumber::after{content:"\00a0"}
+#content>h1:first-child:not([class]){color:rgba(0,0,0,.85);border-bottom:1px solid #ddddd8;padding-bottom:8px;margin-top:0;padding-top:1rem;margin-bottom:1.25rem}
+#toc{border-bottom:1px solid #efefed;padding-bottom:.5em}
+#toc>ul{margin-left:.125em}
+#toc ul.sectlevel0>li>a{font-style:italic}
+#toc ul.sectlevel0 ul.sectlevel1{margin:.5em 0}
+#toc ul{font-family:"Open Sans","DejaVu Sans",sans-serif;list-style-type:none}
+#toc li{line-height:1.3334;margin-top:.3334em}
+#toc a{text-decoration:none}
+#toc a:active{text-decoration:underline}
+#toctitle{color:#7a2518;font-size:1.2em}
+@media screen and (min-width:768px){#toctitle{font-size:1.375em}
+body.toc2{padding-left:15em;padding-right:0}
+#toc.toc2{margin-top:0!important;background-color:#f8f8f7;position:fixed;width:15em;left:0;top:0;border-right:1px solid #efefed;border-top-width:0!important;border-bottom-width:0!important;z-index:1000;padding:1.25em 1em;height:100%;overflow:auto}
+#toc.toc2 #toctitle{margin-top:0;margin-bottom:.8rem;font-size:1.2em}
+#toc.toc2>ul{font-size:.9em;margin-bottom:0}
+#toc.toc2 ul ul{margin-left:0;padding-left:1em}
+#toc.toc2 ul.sectlevel0 ul.sectlevel1{padding-left:0;margin-top:.5em;margin-bottom:.5em}
+body.toc2.toc-right{padding-left:0;padding-right:15em}
+body.toc2.toc-right #toc.toc2{border-right-width:0;border-left:1px solid #efefed;left:auto;right:0}}
+@media screen and (min-width:1280px){body.toc2{padding-left:20em;padding-right:0}
+#toc.toc2{width:20em}
+#toc.toc2 #toctitle{font-size:1.375em}
+#toc.toc2>ul{font-size:.95em}
+#toc.toc2 ul ul{padding-left:1.25em}
+body.toc2.toc-right{padding-left:0;padding-right:20em}}
+#content #toc{border-style:solid;border-width:1px;border-color:#e0e0dc;margin-bottom:1.25em;padding:1.25em;background:#f8f8f7;-webkit-border-radius:4px;border-radius:4px}
+#content #toc>:first-child{margin-top:0}
+#content #toc>:last-child{margin-bottom:0}
+#footer{max-width:100%;background-color:rgba(0,0,0,.8);padding:1.25em}
+#footer-text{color:rgba(255,255,255,.8);line-height:1.44}
+#content{margin-bottom:.625em}
+.sect1{padding-bottom:.625em}
+@media screen and (min-width:768px){#content{margin-bottom:1.25em}
+.sect1{padding-bottom:1.25em}}
+.sect1:last-child{padding-bottom:0}
+.sect1+.sect1{border-top:1px solid #efefed}
+#content h1>a.anchor,h2>a.anchor,h3>a.anchor,#toctitle>a.anchor,.sidebarblock>.content>.title>a.anchor,h4>a.anchor,h5>a.anchor,h6>a.anchor{position:absolute;z-index:1001;width:1.5ex;margin-left:-1.5ex;display:block;text-decoration:none!important;visibility:hidden;text-align:center;font-weight:400}
+#content h1>a.anchor::before,h2>a.anchor::before,h3>a.anchor::before,#toctitle>a.anchor::before,.sidebarblock>.content>.title>a.anchor::before,h4>a.anchor::before,h5>a.anchor::before,h6>a.anchor::before{content:"\00A7";font-size:.85em;display:block;padding-top:.1em}
+#content h1:hover>a.anchor,#content h1>a.anchor:hover,h2:hover>a.anchor,h2>a.anchor:hover,h3:hover>a.anchor,#toctitle:hover>a.anchor,.sidebarblock>.content>.title:hover>a.anchor,h3>a.anchor:hover,#toctitle>a.anchor:hover,.sidebarblock>.content>.title>a.anchor:hover,h4:hover>a.anchor,h4>a.anchor:hover,h5:hover>a.anchor,h5>a.anchor:hover,h6:hover>a.anchor,h6>a.anchor:hover{visibility:visible}
+#content h1>a.link,h2>a.link,h3>a.link,#toctitle>a.link,.sidebarblock>.content>.title>a.link,h4>a.link,h5>a.link,h6>a.link{color:#ba3925;text-decoration:none}
+#content h1>a.link:hover,h2>a.link:hover,h3>a.link:hover,#toctitle>a.link:hover,.sidebarblock>.content>.title>a.link:hover,h4>a.link:hover,h5>a.link:hover,h6>a.link:hover{color:#a53221}
+.audioblock,.imageblock,.literalblock,.listingblock,.stemblock,.videoblock{margin-bottom:1.25em}
+.admonitionblock td.content>.title,.audioblock>.title,.exampleblock>.title,.imageblock>.title,.listingblock>.title,.literalblock>.title,.stemblock>.title,.openblock>.title,.paragraph>.title,.quoteblock>.title,table.tableblock>.title,.verseblock>.title,.videoblock>.title,.dlist>.title,.olist>.title,.ulist>.title,.qlist>.title,.hdlist>.title{text-rendering:optimizeLegibility;text-align:left;font-family:"Noto Serif","DejaVu Serif",serif;font-size:1rem;font-style:italic}
+table.tableblock.fit-content>caption.title{white-space:nowrap;width:0}
+.paragraph.lead>p,#preamble>.sectionbody>[class="paragraph"]:first-of-type p{font-size:1.21875em;line-height:1.6;color:rgba(0,0,0,.85)}
+table.tableblock #preamble>.sectionbody>[class="paragraph"]:first-of-type p{font-size:inherit}
+.admonitionblock>table{border-collapse:separate;border:0;background:none;width:100%}
+.admonitionblock>table td.icon{text-align:center;width:80px}
+.admonitionblock>table td.icon img{max-width:none}
+.admonitionblock>table td.icon .title{font-weight:bold;font-family:"Open Sans","DejaVu Sans",sans-serif;text-transform:uppercase}
+.admonitionblock>table td.content{padding-left:1.125em;padding-right:1.25em;border-left:1px solid #ddddd8;color:rgba(0,0,0,.6)}
+.admonitionblock>table td.content>:last-child>:last-child{margin-bottom:0}
+.exampleblock>.content{border-style:solid;border-width:1px;border-color:#e6e6e6;margin-bottom:1.25em;padding:1.25em;background:#fff;-webkit-border-radius:4px;border-radius:4px}
+.exampleblock>.content>:first-child{margin-top:0}
+.exampleblock>.content>:last-child{margin-bottom:0}
+.sidebarblock{border-style:solid;border-width:1px;border-color:#e0e0dc;margin-bottom:1.25em;padding:1.25em;background:#f8f8f7;-webkit-border-radius:4px;border-radius:4px}
+.sidebarblock>:first-child{margin-top:0}
+.sidebarblock>:last-child{margin-bottom:0}
+.sidebarblock>.content>.title{color:#7a2518;margin-top:0;text-align:center}
+.exampleblock>.content>:last-child>:last-child,.exampleblock>.content .olist>ol>li:last-child>:last-child,.exampleblock>.content .ulist>ul>li:last-child>:last-child,.exampleblock>.content .qlist>ol>li:last-child>:last-child,.sidebarblock>.content>:last-child>:last-child,.sidebarblock>.content .olist>ol>li:last-child>:last-child,.sidebarblock>.content .ulist>ul>li:last-child>:last-child,.sidebarblock>.content .qlist>ol>li:last-child>:last-child{margin-bottom:0}
+.literalblock pre,.listingblock pre:not(.highlight),.listingblock pre[class="highlight"],.listingblock pre[class^="highlight "],.listingblock pre.CodeRay,.listingblock pre.prettyprint{background:#f7f7f8}
+.sidebarblock .literalblock pre,.sidebarblock .listingblock pre:not(.highlight),.sidebarblock .listingblock pre[class="highlight"],.sidebarblock .listingblock pre[class^="highlight "],.sidebarblock .listingblock pre.CodeRay,.sidebarblock .listingblock pre.prettyprint{background:#f2f1f1}
+.literalblock pre,.literalblock pre[class],.listingblock pre,.listingblock pre[class]{-webkit-border-radius:4px;border-radius:4px;word-wrap:break-word;padding:1em;font-size:.8125em}
+.literalblock pre.nowrap,.literalblock pre[class].nowrap,.listingblock pre.nowrap,.listingblock pre[class].nowrap{overflow-x:auto;white-space:pre;word-wrap:normal}
+@media screen and (min-width:768px){.literalblock pre,.literalblock pre[class],.listingblock pre,.listingblock pre[class]{font-size:.90625em}}
+@media screen and (min-width:1280px){.literalblock pre,.literalblock pre[class],.listingblock pre,.listingblock pre[class]{font-size:1em}}
+.literalblock.output pre{color:#f7f7f8;background-color:rgba(0,0,0,.9)}
+.listingblock pre.highlightjs{padding:0}
+.listingblock pre.highlightjs>code{padding:1em;-webkit-border-radius:4px;border-radius:4px}
+.listingblock pre.prettyprint{border-width:0}
+.listingblock>.content{position:relative}
+.listingblock code[data-lang]::before{display:none;content:attr(data-lang);position:absolute;font-size:.75em;top:.425rem;right:.5rem;line-height:1;text-transform:uppercase;color:#999}
+.listingblock:hover code[data-lang]::before{display:block}
+.listingblock.terminal pre .command::before{content:attr(data-prompt);padding-right:.5em;color:#999}
+.listingblock.terminal pre .command:not([data-prompt])::before{content:"$"}
+table.pyhltable{border-collapse:separate;border:0;margin-bottom:0;background:none}
+table.pyhltable td{vertical-align:top;padding-top:0;padding-bottom:0;line-height:1.45}
+table.pyhltable td.code{padding-left:.75em;padding-right:0}
+pre.pygments .lineno,table.pyhltable td:not(.code){color:#999;padding-left:0;padding-right:.5em;border-right:1px solid #ddddd8}
+pre.pygments .lineno{display:inline-block;margin-right:.25em}
+table.pyhltable .linenodiv{background:none!important;padding-right:0!important}
+.quoteblock{margin:0 1em 1.25em 1.5em;display:table}
+.quoteblock>.title{margin-left:-1.5em;margin-bottom:.75em}
+.quoteblock blockquote,.quoteblock blockquote p{color:rgba(0,0,0,.85);font-size:1.15rem;line-height:1.75;word-spacing:.1em;letter-spacing:0;font-style:italic;text-align:justify}
+.quoteblock blockquote{margin:0;padding:0;border:0}
+.quoteblock blockquote::before{content:"\201c";float:left;font-size:2.75em;font-weight:bold;line-height:.6em;margin-left:-.6em;color:#7a2518;text-shadow:0 1px 2px rgba(0,0,0,.1)}
+.quoteblock blockquote>.paragraph:last-child p{margin-bottom:0}
+.quoteblock .attribution{margin-top:.5em;margin-right:.5ex;text-align:right}
+.quoteblock .quoteblock{margin-left:0;margin-right:0;padding:.5em 0;border-left:3px solid rgba(0,0,0,.6)}
+.quoteblock .quoteblock blockquote{padding:0 0 0 .75em}
+.quoteblock .quoteblock blockquote::before{display:none}
+.verseblock{margin:0 1em 1.25em}
+.verseblock pre{font-family:"Open Sans","DejaVu Sans",sans;font-size:1.15rem;color:rgba(0,0,0,.85);font-weight:300;text-rendering:optimizeLegibility}
+.verseblock pre strong{font-weight:400}
+.verseblock .attribution{margin-top:1.25rem;margin-left:.5ex}
+.quoteblock .attribution,.verseblock .attribution{font-size:.9375em;line-height:1.45;font-style:italic}
+.quoteblock .attribution br,.verseblock .attribution br{display:none}
+.quoteblock .attribution cite,.verseblock .attribution cite{display:block;letter-spacing:-.025em;color:rgba(0,0,0,.6)}
+.quoteblock.abstract{margin:0 1em 1.25em;display:block}
+.quoteblock.abstract>.title{margin:0 0 .375em;font-size:1.15em;text-align:center}
+.quoteblock.abstract blockquote,.quoteblock.abstract blockquote p{word-spacing:0;line-height:1.6}
+.quoteblock.abstract blockquote::before,.quoteblock.abstract p::before{display:none}
+table.tableblock{max-width:100%;border-collapse:separate}
+p.tableblock:last-child{margin-bottom:0}
+td.tableblock>.content{margin-bottom:-1.25em}
+table.tableblock,th.tableblock,td.tableblock{border:0 solid #dedede}
+table.grid-all>thead>tr>.tableblock,table.grid-all>tbody>tr>.tableblock{border-width:0 1px 1px 0}
+table.grid-all>tfoot>tr>.tableblock{border-width:1px 1px 0 0}
+table.grid-cols>*>tr>.tableblock{border-width:0 1px 0 0}
+table.grid-rows>thead>tr>.tableblock,table.grid-rows>tbody>tr>.tableblock{border-width:0 0 1px}
+table.grid-rows>tfoot>tr>.tableblock{border-width:1px 0 0}
+table.grid-all>*>tr>.tableblock:last-child,table.grid-cols>*>tr>.tableblock:last-child{border-right-width:0}
+table.grid-all>tbody>tr:last-child>.tableblock,table.grid-all>thead:last-child>tr>.tableblock,table.grid-rows>tbody>tr:last-child>.tableblock,table.grid-rows>thead:last-child>tr>.tableblock{border-bottom-width:0}
+table.frame-all{border-width:1px}
+table.frame-sides{border-width:0 1px}
+table.frame-topbot,table.frame-ends{border-width:1px 0}
+table.stripes-all tr,table.stripes-odd tr:nth-of-type(odd){background:#f8f8f7}
+table.stripes-none tr,table.stripes-odd tr:nth-of-type(even){background:none}
+th.halign-left,td.halign-left{text-align:left}
+th.halign-right,td.halign-right{text-align:right}
+th.halign-center,td.halign-center{text-align:center}
+th.valign-top,td.valign-top{vertical-align:top}
+th.valign-bottom,td.valign-bottom{vertical-align:bottom}
+th.valign-middle,td.valign-middle{vertical-align:middle}
+table thead th,table tfoot th{font-weight:bold}
+tbody tr th{display:table-cell;line-height:1.6;background:#f7f8f7}
+tbody tr th,tbody tr th p,tfoot tr th,tfoot tr th p{color:rgba(0,0,0,.8);font-weight:bold}
+p.tableblock>code:only-child{background:none;padding:0}
+p.tableblock{font-size:1em}
+td>div.verse{white-space:pre}
+ol{margin-left:1.75em}
+ul li ol{margin-left:1.5em}
+dl dd{margin-left:1.125em}
+dl dd:last-child,dl dd:last-child>:last-child{margin-bottom:0}
+ol>li p,ul>li p,ul dd,ol dd,.olist .olist,.ulist .ulist,.ulist .olist,.olist .ulist{margin-bottom:.625em}
+ul.checklist,ul.none,ol.none,ul.no-bullet,ol.no-bullet,ol.unnumbered,ul.unstyled,ol.unstyled{list-style-type:none}
+ul.no-bullet,ol.no-bullet,ol.unnumbered{margin-left:.625em}
+ul.unstyled,ol.unstyled{margin-left:0}
+ul.checklist{margin-left:.625em}
+ul.checklist li>p:first-child>.fa-square-o:first-child,ul.checklist li>p:first-child>.fa-check-square-o:first-child{width:1.25em;font-size:.8em;position:relative;bottom:.125em}
+ul.checklist li>p:first-child>input[type="checkbox"]:first-child{margin-right:.25em}
+ul.inline{display:-ms-flexbox;display:-webkit-box;display:flex;-ms-flex-flow:row wrap;-webkit-flex-flow:row wrap;flex-flow:row wrap;list-style:none;margin:0 0 .625em -1.25em}
+ul.inline>li{margin-left:1.25em}
+.unstyled dl dt{font-weight:400;font-style:normal}
+ol.arabic{list-style-type:decimal}
+ol.decimal{list-style-type:decimal-leading-zero}
+ol.loweralpha{list-style-type:lower-alpha}
+ol.upperalpha{list-style-type:upper-alpha}
+ol.lowerroman{list-style-type:lower-roman}
+ol.upperroman{list-style-type:upper-roman}
+ol.lowergreek{list-style-type:lower-greek}
+.hdlist>table,.colist>table{border:0;background:none}
+.hdlist>table>tbody>tr,.colist>table>tbody>tr{background:none}
+td.hdlist1,td.hdlist2{vertical-align:top;padding:0 .625em}
+td.hdlist1{font-weight:bold;padding-bottom:1.25em}
+.literalblock+.colist,.listingblock+.colist{margin-top:-.5em}
+.colist td:not([class]):first-child{padding:.4em .75em 0;line-height:1;vertical-align:top}
+.colist td:not([class]):first-child img{max-width:none}
+.colist td:not([class]):last-child{padding:.25em 0}
+.thumb,.th{line-height:0;display:inline-block;border:solid 4px #fff;-webkit-box-shadow:0 0 0 1px #ddd;box-shadow:0 0 0 1px #ddd}
+.imageblock.left,.imageblock[style*="float: left"]{margin:.25em .625em 1.25em 0}
+.imageblock.right,.imageblock[style*="float: right"]{margin:.25em 0 1.25em .625em}
+.imageblock>.title{margin-bottom:0}
+.imageblock.thumb,.imageblock.th{border-width:6px}
+.imageblock.thumb>.title,.imageblock.th>.title{padding:0 .125em}
+.image.left,.image.right{margin-top:.25em;margin-bottom:.25em;display:inline-block;line-height:0}
+.image.left{margin-right:.625em}
+.image.right{margin-left:.625em}
+a.image{text-decoration:none;display:inline-block}
+a.image object{pointer-events:none}
+sup.footnote,sup.footnoteref{font-size:.875em;position:static;vertical-align:super}
+sup.footnote a,sup.footnoteref a{text-decoration:none}
+sup.footnote a:active,sup.footnoteref a:active{text-decoration:underline}
+#footnotes{padding-top:.75em;padding-bottom:.75em;margin-bottom:.625em}
+#footnotes hr{width:20%;min-width:6.25em;margin:-.25em 0 .75em;border-width:1px 0 0}
+#footnotes .footnote{padding:0 .375em 0 .225em;line-height:1.3334;font-size:.875em;margin-left:1.2em;margin-bottom:.2em}
+#footnotes .footnote a:first-of-type{font-weight:bold;text-decoration:none;margin-left:-1.05em}
+#footnotes .footnote:last-of-type{margin-bottom:0}
+#content #footnotes{margin-top:-.625em;margin-bottom:0;padding:.75em 0}
+.gist .file-data>table{border:0;background:#fff;width:100%;margin-bottom:0}
+.gist .file-data>table td.line-data{width:99%}
+div.unbreakable{page-break-inside:avoid}
+.big{font-size:larger}
+.small{font-size:smaller}
+.underline{text-decoration:underline}
+.overline{text-decoration:overline}
+.line-through{text-decoration:line-through}
+.aqua{color:#00bfbf}
+.aqua-background{background-color:#00fafa}
+.black{color:#000}
+.black-background{background-color:#000}
+.blue{color:#0000bf}
+.blue-background{background-color:#0000fa}
+.fuchsia{color:#bf00bf}
+.fuchsia-background{background-color:#fa00fa}
+.gray{color:#606060}
+.gray-background{background-color:#7d7d7d}
+.green{color:#006000}
+.green-background{background-color:#007d00}
+.lime{color:#00bf00}
+.lime-background{background-color:#00fa00}
+.maroon{color:#600000}
+.maroon-background{background-color:#7d0000}
+.navy{color:#000060}
+.navy-background{background-color:#00007d}
+.olive{color:#606000}
+.olive-background{background-color:#7d7d00}
+.purple{color:#600060}
+.purple-background{background-color:#7d007d}
+.red{color:#bf0000}
+.red-background{background-color:#fa0000}
+.silver{color:#909090}
+.silver-background{background-color:#bcbcbc}
+.teal{color:#006060}
+.teal-background{background-color:#007d7d}
+.white{color:#bfbfbf}
+.white-background{background-color:#fafafa}
+.yellow{color:#bfbf00}
+.yellow-background{background-color:#fafa00}
+span.icon>.fa{cursor:default}
+a span.icon>.fa{cursor:inherit}
+.admonitionblock td.icon [class^="fa icon-"]{font-size:2.5em;text-shadow:1px 1px 2px rgba(0,0,0,.5);cursor:default}
+.admonitionblock td.icon .icon-note::before{content:"\f05a";color:#19407c}
+.admonitionblock td.icon .icon-tip::before{content:"\f0eb";text-shadow:1px 1px 2px rgba(155,155,0,.8);color:#111}
+.admonitionblock td.icon .icon-warning::before{content:"\f071";color:#bf6900}
+.admonitionblock td.icon .icon-caution::before{content:"\f06d";color:#bf3400}
+.admonitionblock td.icon .icon-important::before{content:"\f06a";color:#bf0000}
+.conum[data-value]{display:inline-block;color:#fff!important;background-color:rgba(0,0,0,.8);-webkit-border-radius:100px;border-radius:100px;text-align:center;font-size:.75em;width:1.67em;height:1.67em;line-height:1.67em;font-family:"Open Sans","DejaVu Sans",sans-serif;font-style:normal;font-weight:bold}
+.conum[data-value] *{color:#fff!important}
+.conum[data-value]+b{display:none}
+.conum[data-value]::after{content:attr(data-value)}
+pre .conum[data-value]{position:relative;top:-.125em}
+b.conum *{color:inherit!important}
+.conum:not([data-value]):empty{display:none}
+dt,th.tableblock,td.content,div.footnote{text-rendering:optimizeLegibility}
+h1,h2,p,td.content,span.alt{letter-spacing:-.01em}
+p strong,td.content strong,div.footnote strong{letter-spacing:-.005em}
+p,blockquote,dt,td.content,span.alt{font-size:1.0625rem}
+p{margin-bottom:1.25rem}
+.sidebarblock p,.sidebarblock dt,.sidebarblock td.content,p.tableblock{font-size:1em}
+.exampleblock>.content{background-color:#fffef7;border-color:#e0e0dc;-webkit-box-shadow:0 1px 4px #e0e0dc;box-shadow:0 1px 4px #e0e0dc}
+.print-only{display:none!important}
+@page{margin:1.25cm .75cm}
+@media print{*{-webkit-box-shadow:none!important;box-shadow:none!important;text-shadow:none!important}
+html{font-size:80%}
+a{color:inherit!important;text-decoration:underline!important}
+a.bare,a[href^="#"],a[href^="mailto:"]{text-decoration:none!important}
+a[href^="http:"]:not(.bare)::after,a[href^="https:"]:not(.bare)::after{content:"(" attr(href) ")";display:inline-block;font-size:.875em;padding-left:.25em}
+abbr[title]::after{content:" (" attr(title) ")"}
+pre,blockquote,tr,img,object,svg{page-break-inside:avoid}
+thead{display:table-header-group}
+svg{max-width:100%}
+p,blockquote,dt,td.content{font-size:1em;orphans:3;widows:3}
+h2,h3,#toctitle,.sidebarblock>.content>.title{page-break-after:avoid}
+#toc,.sidebarblock,.exampleblock>.content{background:none!important}
+#toc{border-bottom:1px solid #ddddd8!important;padding-bottom:0!important}
+body.book #header{text-align:center}
+body.book #header>h1:first-child{border:0!important;margin:2.5em 0 1em}
+body.book #header .details{border:0!important;display:block;padding:0!important}
+body.book #header .details span:first-child{margin-left:0!important}
+body.book #header .details br{display:block}
+body.book #header .details br+span::before{content:none!important}
+body.book #toc{border:0!important;text-align:left!important;padding:0!important;margin:0!important}
+body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-break-before:always}
+.listingblock code[data-lang]::before{display:block}
+#footer{padding:0 .9375em}
+.hide-on-print{display:none!important}
+.print-only{display:block!important}
+.hide-for-print{display:none!important}
+.show-for-print{display:inherit!important}}
+@media print,amzn-kf8{#header>h1:first-child{margin-top:1.25rem}
+.sect1{padding:0!important}
+.sect1+.sect1{border:0}
+#footer{background:none}
+#footer-text{color:rgba(0,0,0,.6);font-size:.9em}}
+@media amzn-kf8{#header,#content,#footnotes,#footer{padding:0}}
+</style>
+</head>
+<body class="article toc2 toc-left">
+<div id="header">
+<h1>Github Rest Api V3</h1>
+<div class="details">
+<span id="author" class="author">大胃王</span><br>
+<span id="email" class="email"><a href="mailto:253498229@qq.com">253498229@qq.com</a></span><br>
+<span id="revdate">2018-10-31</span>
+</div>
+<div id="toc" class="toc2">
+<div id="toctitle">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#_概述">概述</a>
+<ul class="sectlevel2">
+<li><a href="#CurrentVersion">当前版本</a></li>
+<li><a href="#Schema">结构</a></li>
+<li><a href="#Authentication">认证</a></li>
+<li><a href="#Parameters">参数</a></li>
+<li><a href="#RootEndpoint">根端点</a></li>
+<li><a href="#GraphQLGlobalNodeIDs">GraphQL全局节点IDs</a></li>
+<li><a href="#ClientErrors">客户端错误</a></li>
+<li><a href="#HTTPRedirects">HTTP 重定向</a></li>
+<li><a href="#HTTPVerbs">HTTP 动词</a></li>
+<li><a href="#Hypermedia">超媒体</a></li>
+<li><a href="#Pagination">分页</a></li>
+<li><a href="#RateLimiting">次数限制</a></li>
+<li><a href="#UserAgentRequired">User agent required</a></li>
+<li><a href="#ConditionalRequests">Conditional requests</a></li>
+<li><a href="#CrossOriginResourceSharing">Cross origin resource sharing</a></li>
+<li><a href="#JSON-PCallbacks">JSON-P callbacks</a></li>
+<li><a href="#Timezones">Timezones</a></li>
+</ul>
+</li>
+<li><a href="#_activity">Activity</a></li>
+<li><a href="#_checks">Checks</a></li>
+<li><a href="#_gists">Gists</a></li>
+<li><a href="#_git_data">Git Data</a></li>
+<li><a href="#_github_apps">GitHub Apps</a></li>
+<li><a href="#_issues">Issues</a></li>
+<li><a href="#_migrations">Migrations</a></li>
+<li><a href="#_miscellaneous">Miscellaneous</a></li>
+<li><a href="#_organizations">Organizations</a></li>
+<li><a href="#_projects">Projects</a></li>
+<li><a href="#_pullrequests">PullRequests</a></li>
+<li><a href="#_reactions">Reactions</a></li>
+<li><a href="#_repositories">Repositories</a></li>
+<li><a href="#_search">Search</a></li>
+<li><a href="#_teams">Teams</a></li>
+<li><a href="#_scim">SCIM</a></li>
+<li><a href="#_users">Users</a></li>
+</ul>
+</div>
+</div>
+<div id="content">
+<div class="sect1">
+<h2 id="_概述">概述</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>本文档是GitHub官方REST API v3文档的翻译。
+如果您有任何问题或要求，请联系 <a href="https://github.com/contact">GitHub支持</a>。</p>
+</div>
+<div class="olist lowerroman">
+<ol class="lowerroman" type="i">
+<li>
+<p><a href="#CurrentVersion">当前版本</a></p>
+</li>
+<li>
+<p><a href="#Schema">结构</a></p>
+</li>
+<li>
+<p><a href="#Authentication">认证</a></p>
+</li>
+<li>
+<p><a href="#Parameters">参数</a></p>
+</li>
+<li>
+<p><a href="#RootEndpoint">根端点</a></p>
+</li>
+<li>
+<p><a href="#GraphQLGlobalNodeIDs">GraphQL全局节点IDs</a></p>
+</li>
+<li>
+<p><a href="#ClientErrors">客户端错误</a></p>
+</li>
+<li>
+<p><a href="#HTTPRedirects">HTTP重定向</a></p>
+</li>
+<li>
+<p><a href="#HTTPVerbs">HTTP动词</a></p>
+</li>
+<li>
+<p><a href="#Hypermedia">超媒体</a></p>
+</li>
+<li>
+<p><a href="#Pagination">分页</a></p>
+</li>
+<li>
+<p><a href="#RateLimiting">次数限制</a></p>
+</li>
+<li>
+<p><a href="#UserAgentRequired">User agent required</a></p>
+</li>
+<li>
+<p><a href="#ConditionalRequests">Conditional requests</a></p>
+</li>
+<li>
+<p><a href="#CrossOriginResourceSharing">Cross origin resource sharing</a></p>
+</li>
+<li>
+<p><a href="#JSON-PCallbacks">JSON-P callbacks</a></p>
+</li>
+<li>
+<p><a href="#Timezones">Timezones</a></p>
+</li>
+</ol>
+</div>
+<div class="sect2">
+<h3 id="CurrentVersion">当前版本</h3>
+<div class="paragraph">
+<p>默认情况下，对 <code>https://api.github.com</code> 的所有请求都会发送到REST API的v3 <a href="https://developer.github.com/v3/versions">版本</a>。
+我们建议您通过 <a href="https://developer.github.com/v3/media/#request-specific-version"><code>Accept</code> 标记请求头明确请求此版本</a>。</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>Accept: application/vnd.github.v3+json</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>有关GitHub的GraphQL API v4的信息，请参阅 <a href="https://developer.github.com/v4">v4文档</a>。
+有关迁移到GraphQL的信息，请参阅“ <a href="https://developer.github.com/v4/guides/migrating-from-rest/">从REST迁移</a> ”。</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Schema">结构</h3>
+<div class="paragraph">
+<p>所有API访问均使用HTTPS协议，并可从 <code>https://api.github.com</code> 进行访问。 所有数据都以JSON的形式发送和接收。</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>curl -i https://api.github.com/users/octocat/orgs
+
+HTTP/1.1 200 OK
+Server: nginx
+Date: Fri, 12 Oct 2012 23:33:14 GMT
+Content-Type: application/json; charset=utf-8
+Connection: keep-alive
+Status: 200 OK
+ETag: "a00049ba79152d03380c34652f2cb612"
+X-GitHub-Media-Type: github.v3
+X-RateLimit-Limit: 5000
+X-RateLimit-Remaining: 4987
+X-RateLimit-Reset: 1350085394
+Content-Length: 5
+Cache-Control: max-age=0, private, must-revalidate
+X-Content-Type-Options: nosniff</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>空白字段包含为 <code>null</code> 而不是被省略。</p>
+</div>
+<div class="paragraph">
+<p>所有时间戳均以ISO 8601格式返回:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>YYYY-MM-DDTHH:MM:SSZ</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>有关时间戳中时区的详细信息，请参阅此 <a href="https://developer.github.com/v3/#timezones">部分</a>。</p>
+</div>
+<div class="sect3">
+<h4 id="_结构摘要">结构摘要</h4>
+<div class="paragraph">
+<p>获取资源列表时，响应包括该资源的属性子集。 这是资源的“摘要”表示。
+(某些属性在API上提供的计算成本很高。出于性能原因，摘要表示会排除这些属性。要获取这些属性，请获取“详细”资源。)</p>
+</div>
+<div class="paragraph">
+<p>例如:获取存储库列表后，您将获得每个存储库的摘要表示。 在这里，我们获取 <a href="https://github.com/octokit">octokit</a> 组织拥有的存储库列表：</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>GET /orgs/octokit/repos</pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_结构详情">结构详情</h4>
+<div class="paragraph">
+<p>获取单个资源时，响应通常包括该资源的所有属性。 这是资源的“详细”表示。
+(请注意，授权有时会影响表示中包含的详细信息量。)</p>
+</div>
+<div class="paragraph">
+<p>例如:获取单个存储库后，您将获得存储库的详细表示。 在这里，我们获取 <a href="https://github.com/octokit/octokit.rb">octokit/octokit.rb</a> 存储库：</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>GET /repos/octokit/octokit.rb</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>该文档提供了每种API方法的示例响应。 示例响应说明了该方法返回的所有属性。</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Authentication">认证</h3>
+<div class="paragraph">
+<p>有三种方法可以通过GitHub API v3进行身份验证。 在某些地方，需要身份验证的请求将返回 <code>404 Not Found</code> ，而不是 <code>403 Forbidden</code> 。 这是为了防止私有存储库意外泄露给未经授权的用户。</p>
+</div>
+<div class="sect3">
+<h4 id="_基本认证方式">基本认证方式</h4>
+<div class="literalblock">
+<div class="content">
+<pre>curl -u "username" https://api.github.com</pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_oauth2_token方式_在header中发送">OAuth2 token方式 (在header中发送)</h4>
+<div class="literalblock">
+<div class="content">
+<pre>curl -H "Authorization: token OAUTH-TOKEN" https://api.github.com</pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_oauth2_token方式_参数形式发送">OAuth2 token方式 (参数形式发送)</h4>
+<div class="literalblock">
+<div class="content">
+<pre>curl https://api.github.com/?access_token=OAUTH-TOKEN</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>阅读 <a href="https://developer.github.com/apps/building-integrations/setting-up-and-registering-oauth-apps/">有关OAuth2的更多信息</a> 。
+请注意，对于非网站的应用程序，可以 <a href="https://developer.github.com/v3/oauth_authorizations/#create-a-new-authorization">通过编程方式获取</a> OAuth2令牌。</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_oauth2_keysecret方式">OAuth2 key/secret方式</h4>
+<div class="literalblock">
+<div class="content">
+<pre>curl 'https://api.github.com/users/whatever?client_id=xxxx&amp;client_secret=yyyy'</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>这种方式仅被用于服务器到服务器方案。 不要将OAuth应用程序的客户端密钥泄露给您的用户。</p>
+</div>
+<div class="paragraph">
+<p>阅读 <a href="https://developer.github.com/v3/#increasing-the-unauthenticated-rate-limit-for-oauth-applications">更多关于未经验证的速率限制</a>。</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_登录失败的限制">登录失败的限制</h4>
+<div class="paragraph">
+<p>使用无效凭据进行身份验证将返回 <code>401 Unauthorized</code>：</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>curl -i https://api.github.com -u foo:bar
+
+HTTP/1.1 401 Unauthorized
+{
+  "message": "Bad credentials",
+  "documentation_url": "https://developer.github.com/v3"
+}</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>在短时间内检测到多个具有无效凭据的请求后，API将暂时拒绝该用户的所有身份验证尝试（包括具有有效凭据的身份验证）和 <code>403 Forbidden</code>：</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>curl -i https://api.github.com -u valid_username:valid_password
+
+HTTP/1.1 403 Forbidden
+{
+  "message": "Maximum number of login attempts exceeded. Please try again later.",
+  "documentation_url": "https://developer.github.com/v3"
+}</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Parameters">参数</h3>
+<div class="paragraph">
+<p>许多API方法都采用可选参数。 对于GET请求，未包含在路径中任何字符串都可以作为参数传递：</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>curl -i "https://api.github.com/repos/vmg/redcarpet/issues?state=closed"</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>在此示例中，为路径中的 <code>vmg</code> 和 <code>redcarpet</code> 参数提供 <code>:owner</code> 和 <code>:repo</code> 的值，而在查询字符串中传递 <code>:state</code> 。</p>
+</div>
+<div class="paragraph">
+<p>对于 <code>POST</code> ， <code>PATCH</code> ， <code>PUT</code> 和 <code>DELETE</code> 请求，URL中未包含的参数应编码为JSON，其Content-Type为&#8217;application/json':</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>curl -i -u username -d '{"scopes":["public_repo"]}' https://api.github.com/authorizations</pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="RootEndpoint">根端点</h3>
+<div class="paragraph">
+<p>您可以向根端点发出 <code>GET</code> 请求，以获取REST API v3支持的所有端点类别：</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>curl https://api.github.com</pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="GraphQLGlobalNodeIDs">GraphQL全局节点IDs</h3>
+<div class="paragraph">
+<p>有关如何通过REST API v3查找node_ids并在GraphQL操作中使用它们的详细信息，请参阅“ <a href="https://developer.github.com/v4/guides/using-global-node-ids">使用全局节点IDs</a> ”指南。</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="ClientErrors">客户端错误</h3>
+<div class="paragraph">
+<p>接收请求主体的API调用有三种可能的客户端错误类型：</p>
+</div>
+<div class="paragraph">
+<p>1.发送无效的JSON会返回 <code>400 Bad Request</code>。</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>HTTP/1.1 400 Bad Request
+Content-Length: 35
+
+{"message":"Problems parsing JSON"}</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>2.发送错误类型的JSON值会返回 <code>400 Bad Request</code>。</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>HTTP/1.1 400 Bad Request
+Content-Length: 40
+
+{"message":"Body should be a JSON object"}</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>3.发送无效字段将返回 <code>422 Unprocessable Entity</code>。</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>HTTP/1.1 422 Unprocessable Entity
+Content-Length: 149
+
+{
+  "message": "Validation Failed",
+  "errors": [
+    {
+      "resource": "Issue",
+      "field": "title",
+      "code": "missing_field"
+    }
+  ]
+}</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>所有错误对象都具有资源和字段属性，以便客户端可以知道问题所在。 还有一个错误代码，让您知道该字段有什么问题。 这些是有可能出现的验证错误代码：</p>
+</div>
+<div class="paragraph">
+<p>All error objects have resource and field properties so that your client can tell what the problem is. There&#8217;s also an error code to let you know what is wrong with the field. These are the possible validation error codes:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">错误名</th>
+<th class="tableblock halign-left valign-top">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">missing</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">这意味着资源不存在。</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">missing_field</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">这意味着尚未设置资源上的必填字段。</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">invalid</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">这意味着字段的格式无效。 该资源的文档应该能够为您提供更具体的信息。</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">already_exists</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">这意味着另一个资源与此字段具有相同的值。 这可能发生在必须具有某些唯一键（例如名为Label）的资源中。</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>资源也可能发送自定义验证错误（ <code>代码</code> 是 <code>自定义</code> 的）。 自定义错误将始终有描述错误的 <code>message</code> 字段，并且大多数错误还将包括一个 <code>documentation_url</code> 字段，该字段指向可能有助于您解决错误的某些内容。</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="HTTPRedirects">HTTP 重定向</h3>
+<div class="paragraph">
+<p>API v3在适当的地方使用HTTP重定向。
+客户端应该假定任何请求都可能导致重定向。
+接收HTTP重定向不是错误，客户端应遵循该重定向。
+重定向响应头包含 <code>Location</code> 字段，该字段包含客户端应重复请求的资源的URI。</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">状态码</th>
+<th class="tableblock halign-left valign-top">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">301</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">永久重定向。 您用于发出请求的URI已被Location头字段中指定的URI取代。 此资源以及将来对此资源的所有请求都应定向到新URI。</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">302, 307</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">临时重定向。 请求被临时地重定向到Location头字段中指定的URI，但客户端应继续使用原始URI以用于将来的请求。</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>可以根据HTTP 1.1规范使用其他重定向状态代码。</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="HTTPVerbs">HTTP 动词</h3>
+<div class="paragraph">
+<p>在可能的情况下，API v3会努力为每个操作使用适当的HTTP动词。</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">动词</th>
+<th class="tableblock halign-left valign-top">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">HEAD</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">可以用于获取任何HTTP资源头信息。</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">GET</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">用于检索资源。</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">POST</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">用于创建资源。</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">PATCH</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">用于使用部分JSON数据更新资源。 例如，Issue资源具有title和body属性。 PATCH请求可以接受一个或多个属性来更新资源。 PATCH是一个相对较新且不常见的HTTP动词，因此资源端点也接受POST请求。</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">PUT</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">用于替换资源或集合。 对于没有body属性的PUT请求，请确保将Content-Length标头设置为零。</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">DELETE</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">用于删除资源。</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="Hypermedia">超媒体</h3>
+<div class="paragraph">
+<p>所有资源都可以有一个或多个 <code>*_url</code> 属性链接到其他资源。
+这些用于提供显式URL，以便正确的API客户端不需要自己构建URL。
+强烈建议API客户端使用这些。
+这样做将使开发人员更容易将来升级API。
+所有URL都应该基于 <a href="http://tools.ietf.org/html/rfc6570">RFC 6570</a> URI模板。</p>
+</div>
+<div class="paragraph">
+<p>然后，您可以使用类似 <a href="https://github.com/hannesg/uri_template">uri_template</a> 的gem扩展这些模板：</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>&gt;&gt; tmpl = URITemplate.new('/notifications{?since,all,participating}')
+&gt;&gt; tmpl.expand
+=&gt; "/notifications"
+
+&gt;&gt; tmpl.expand :all =&gt; 1
+=&gt; "/notifications?all=1"
+
+&gt;&gt; tmpl.expand :all =&gt; 1, :participating =&gt; 1
+=&gt; "/notifications?all=1&amp;participating=1"</pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Pagination">分页</h3>
+<div class="paragraph">
+<p>默认情况下，返回多条数据的请求将被分为30页。
+您可以使用 <code>?page</code> 参数指定更多页面。
+对于某些资源，您还可以使用 <code>?per_page</code> 参数来自定义每页条数。
+请注意，由于技术原因，并非所有端点都遵循 <code>?per_page</code> 参数，请参阅 <a href="https://developer.github.com/v3/activity/events/">events</a> 。</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>curl 'https://api.github.com/user/repos?page=2&amp;per_page=100'</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>请注意，页码编号是从 <code>1</code> 开始的，省略 <code>?page</code> 参数将返回第一页。</p>
+</div>
+<div class="paragraph">
+<p>有关分页的更多信息，请查看我们的 <a href="https://developer.github.com/guides/traversing-with-pagination">分页</a> 指南。</p>
+</div>
+<div class="sect3">
+<h4 id="_链接header">链接header</h4>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+使用链接header值的方式调用而不自己构建URL是非常重要的
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p><a href="http://tools.ietf.org/html/rfc5988">链接header</a> 包含分页信息：。</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>Link: &lt;https://api.github.com/user/repos?page=3&amp;per_page=100&gt;; rel="next",
+  &lt;https://api.github.com/user/repos?page=50&amp;per_page=100&gt;; rel="last"</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>该示例包括换行符以提高可读性。</p>
+</div>
+<div class="paragraph">
+<p>此 <code>链接</code> 响应头包含一个或多个 <a href="https://developer.github.com/v3/#hypermedia">超媒体</a> 链接关系，其中一些可能需要扩展为 <a href="http://tools.ietf.org/html/rfc6570">URI 模板</a>。</p>
+</div>
+<div class="paragraph">
+<p><code>rel</code> 的可能值：</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">名字</th>
+<th class="tableblock halign-left valign-top">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">prev</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">上一页结果的链接关系。</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">next</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">下一页结果的链接关系。</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">first</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">第一页结果的链接关系。</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">last</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">最后一页结果的链接关系。</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="RateLimiting">次数限制</h3>
+<div class="paragraph">
+<p>对于使用基本身份验证或OAuth的API请求，您每小时最多可以处理5000个请求。
+无论是使用了 <a href="https://developer.github.com/v3/#basic-authentication">基本身份验证</a> 还是  <a href="https://developer.github.com/v3/#oauth2-token-sent-in-a-header">OAuth令牌</a> ，经过身份验证的请求都与经过身份验证的用户相关联。
+也就是说，当使用同一用户拥有的不同令牌进行身份验证时，用户所授权的所有OAuth应用程序每小时共享相同的5000个请求配额。</p>
+</div>
+<div class="paragraph">
+<p>对于未经身份验证的请求，每小时最多允许60个请求。 未经身份验证的请求与原始IP地址相关联，而不是与发出请求的用户相关联。</p>
+</div>
+<div class="paragraph">
+<p>请注意， <a href="https://developer.github.com/v3/search/#rate-limit">Search API具有自定义速率限制规则</a>。</p>
+</div>
+<div class="paragraph">
+<p>任何API请求的响应HTTP头中都会显示您当前的限制状态:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>curl -i https://api.github.com/users/octocat
+
+HTTP/1.1 200 OK
+Date: Mon, 01 Jul 2013 17:27:06 GMT
+Status: 200 OK
+X-RateLimit-Limit: 60
+X-RateLimit-Remaining: 56
+X-RateLimit-Reset: 1372700873</pre>
+</div>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Header 名</th>
+<th class="tableblock halign-left valign-top">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X-RateLimit-Limit</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">您每小时允许的最大请求数。</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X-RateLimit-Remaining</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">当前限制的请求剩余的请求数。</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X-RateLimit-Reset</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">当前限制请求下次重置的 <a href="http://en.wikipedia.org/wiki/Unix_time">时间戳</a>(乘以1000后才是正常时间戳)。</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>如果您需要不同格式的时间，任何现代编程语言都可以完成工作。 例如，如果在Web浏览器上打开控制台，则可以轻松地将重置时间作为JavaScript Date对象。</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>new Date(1372700873 * 1000)
+// =&gt; Mon Jul 01 2013 13:47:53 GMT-0400 (EDT)</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>如果超出速率限制，则会返回错误响应:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>HTTP/1.1 403 Forbidden
+Date: Tue, 20 Aug 2013 14:50:41 GMT
+Status: 403 Forbidden
+X-RateLimit-Limit: 60
+X-RateLimit-Remaining: 0
+X-RateLimit-Reset: 1377013266
+{
+   "message": "API rate limit exceeded for xxx.xxx.xxx.xxx. (But here's the good news: Authenticated requests get a higher rate limit. Check out the documentation for more details.)",
+   "documentation_url": "https://developer.github.com/v3/#rate-limiting"
+}</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>您可以检查您的 <a href="https://developer.github.com/v3/rate_limit">限制状态</a>，而不会产生API命中。</p>
+</div>
+<div class="sect3">
+<h4 id="_增加oauth应用程序的未经身份验证的速率限制">增加OAuth应用程序的未经身份验证的速率限制</h4>
+<div class="paragraph">
+<p>如果您的OAuth应用程序需要更高的次数进行未经身份验证的调用，则可以将应用程序的客户端ID和机密作为查询字符串的一部分传递。</p>
+</div>
+<div class="paragraph">
+<p>If your OAuth application needs to make unauthenticated calls with a higher rate limit, you can pass your app&#8217;s client ID and secret as part of the query string.</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>curl -i 'https://api.github.com/users/whatever?client_id=xxxx&amp;client_secret=yyyy'
+HTTP/1.1 200 OK
+Date: Mon, 01 Jul 2013 17:27:06 GMT
+Status: 200 OK
+X-RateLimit-Limit: 5000
+X-RateLimit-Remaining: 4966
+X-RateLimit-Reset: 1372700873</pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+Never share your client secret with anyone or include it in client-side browser code. Use the method shown here only for server-to-server calls.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_staying_within_the_rate_limit">Staying within the rate limit</h4>
+<div class="paragraph">
+<p>If you exceed your rate limit using Basic Authentication or OAuth, you can likely fix the issue by caching API responses and using
+<a href="https://developer.github.com/v3/#conditional-requests">conditional requests</a>
+.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_abuse_rate_limits">Abuse rate limits</h4>
+<div class="paragraph">
+<p>In order to provide quality service on GitHub, additional rate limits may apply to some actions when using the API. For example, using the API to rapidly create content, poll aggressively instead of using webhooks, make multiple concurrent requests, or repeatedly request data that is computationally expensive may result in abuse rate limiting.</p>
+</div>
+<div class="paragraph">
+<p>Abuse rate limits are not intended to interfere with legitimate use of the API.
+Your normal
+<a href="https://developer.github.com/v3/#rate-limiting">rate limits</a>
+ should be the only limit you target.
+To ensure you&#8217;re acting as a good API citizen, check out our
+<a href="https://developer.github.com/guides/best-practices-for-integrators/">Best Practices guidelines</a>.</p>
+</div>
+<div class="paragraph">
+<p>If your application triggers this rate limit, you&#8217;ll receive an informative response:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>HTTP/1.1 403 Forbidden
+Content-Type: application/json; charset=utf-8
+Connection: close
+{
+  "message": "You have triggered an abuse detection mechanism and have been temporarily blocked from content creation. Please retry your request again later.",
+  "documentation_url": "https://developer.github.com/v3/#abuse-rate-limits"
+}</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="UserAgentRequired">User agent required</h3>
+<div class="paragraph">
+<p>All API requests MUST include a valid <code>User-Agent</code> header.
+Requests with no <code>User-Agent</code> header will be rejected.
+We request that you use your GitHub username, or the name of your application, for the <code>User-Agent</code> header value.
+This allows us to contact you if there are problems.</p>
+</div>
+<div class="paragraph">
+<p>Here&#8217;s an example:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>User-Agent: Awesome-Octocat-App</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>cURL sends a valid <code>User-Agent</code> header by default. If you provide an invalid <code>User-Agent</code> header via cURL (or via an alternative client), you will receive a <code>403 Forbidden</code> response:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>curl -iH 'User-Agent: ' https://api.github.com/meta
+HTTP/1.0 403 Forbidden
+Connection: close
+Content-Type: text/html
+Request forbidden by administrative rules.
+Please make sure your request has a User-Agent header.
+Check https://developer.github.com for other possible causes.</pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="ConditionalRequests">Conditional requests</h3>
+<div class="paragraph">
+<p>Most responses return an <code>ETag</code> header. Many responses also return a <code>Last-Modified</code> header. You can use the values of these headers to make subsequent requests to those resources using the <code>If-None-Match</code> and <code>If-Modified-Since</code> headers, respectively. If the resource has not changed, the server will return a <code>304 Not Modified</code>.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+Making a conditional request and receiving a 304 response does not count against your Rate Limit, so we encourage you to use it whenever possible.
+</td>
+</tr>
+</table>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>curl -i https://api.github.com/user
+HTTP/1.1 200 OK
+Cache-Control: private, max-age=60
+ETag: "644b5b0155e6404a9cc4bd9d8b1ae730"
+Last-Modified: Thu, 05 Jul 2012 15:31:30 GMT
+Status: 200 OK
+Vary: Accept, Authorization, Cookie
+X-RateLimit-Limit: 5000
+X-RateLimit-Remaining: 4996
+X-RateLimit-Reset: 1372700873
+curl -i https://api.github.com/user -H 'If-None-Match: "644b5b0155e6404a9cc4bd9d8b1ae730"'
+HTTP/1.1 304 Not Modified
+Cache-Control: private, max-age=60
+ETag: "644b5b0155e6404a9cc4bd9d8b1ae730"
+Last-Modified: Thu, 05 Jul 2012 15:31:30 GMT
+Status: 304 Not Modified
+Vary: Accept, Authorization, Cookie
+X-RateLimit-Limit: 5000
+X-RateLimit-Remaining: 4996
+X-RateLimit-Reset: 1372700873
+curl -i https://api.github.com/user -H "If-Modified-Since: Thu, 05 Jul 2012 15:31:30 GMT"
+HTTP/1.1 304 Not Modified
+Cache-Control: private, max-age=60
+Last-Modified: Thu, 05 Jul 2012 15:31:30 GMT
+Status: 304 Not Modified
+Vary: Accept, Authorization, Cookie
+X-RateLimit-Limit: 5000
+X-RateLimit-Remaining: 4996
+X-RateLimit-Reset: 1372700873</pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="CrossOriginResourceSharing">Cross origin resource sharing</h3>
+<div class="paragraph">
+<p>The API supports Cross Origin Resource Sharing (CORS) for AJAX requests from any origin. You can read the
+<a href="http://www.w3.org/TR/cors/">CORS W3C Recommendation</a>
+, or
+<a href="http://code.google.com/p/html5security/wiki/CrossOriginRequestSecurity">this intro</a>
+ from the HTML 5 Security Guide.</p>
+</div>
+<div class="paragraph">
+<p>Here&#8217;s a sample request sent from a browser hitting <code><a href="http://example.com" class="bare">http://example.com</a></code>:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>curl -i https://api.github.com -H "Origin: http://example.com"
+HTTP/1.1 302 Found
+Access-Control-Allow-Origin: *
+Access-Control-Expose-Headers: ETag, Link, X-GitHub-OTP, X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Reset, X-OAuth-Scopes, X-Accepted-OAuth-Scopes, X-Poll-Interval</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This is what the CORS preflight request looks like:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>curl -i https://api.github.com -H "Origin: http://example.com" -X OPTIONS
+HTTP/1.1 204 No Content
+Access-Control-Allow-Origin: *
+Access-Control-Allow-Headers: Authorization, Content-Type, If-Match, If-Modified-Since, If-None-Match, If-Unmodified-Since, X-GitHub-OTP, X-Requested-With
+Access-Control-Allow-Methods: GET, POST, PATCH, PUT, DELETE
+Access-Control-Expose-Headers: ETag, Link, X-GitHub-OTP, X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Reset, X-OAuth-Scopes, X-Accepted-OAuth-Scopes, X-Poll-Interval
+Access-Control-Max-Age: 86400</pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="JSON-PCallbacks">JSON-P callbacks</h3>
+<div class="paragraph">
+<p>You can send a <code>?callback</code> parameter to any GET call to have the results wrapped in a JSON function. This is typically used when browsers want to embed GitHub content in web pages by getting around cross domain issues. The response includes the same data output as the regular API, plus the relevant HTTP Header information.</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>curl https://api.github.com?callback=foo
+/**/foo({
+  "meta": {
+    "status": 200,
+    "X-RateLimit-Limit": "5000",
+    "X-RateLimit-Remaining": "4966",
+    "X-RateLimit-Reset": "1372700873",
+    "Link": [ // pagination headers and other links
+      ["https://api.github.com?page=2", {"rel": "next"}]
+    ]
+  },
+  "data": {
+    // the data
+  }
+})</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You can write a JavaScript handler to process the callback. Here&#8217;s a minimal example you can try out:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>&lt;html&gt;
+&lt;head&gt;
+&lt;script type="text/javascript"&gt;
+function foo(response) {
+  var meta = response.meta;
+  var data = response.data;
+  console.log(meta);
+  console.log(data);
+}
+
+var script = document.createElement('script');
+script.src = 'https://api.github.com?callback=foo';
+
+document.getElementsByTagName('head')[0].appendChild(script);
+&lt;/script&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+  &lt;p&gt;Open up your browser's console.&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>All of the headers are the same String value as the HTTP Headers with one notable exception: Link. Link headers are pre-parsed for you and come through as an array of <code>[url, options]</code> tuples.</p>
+</div>
+<div class="paragraph">
+<p>A link that looks like this:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>Link: &lt;url1&gt;; rel="next", &lt;url2&gt;; rel="foo"; bar="baz"</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>... will look like this in the Callback output:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>{
+  "Link": [
+    [
+      "url1",
+      {
+        "rel": "next"
+      }
+    ],
+    [
+      "url2",
+      {
+        "rel": "foo",
+        "bar": "baz"
+      }
+    ]
+  ]
+}</pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Timezones">Timezones</h3>
+<div class="paragraph">
+<p>Some requests allow for specifying timestamps or generate timestamps with time zone information. We apply the following rules, in order of priority, to determine timezone information for API calls.</p>
+</div>
+<div class="sect3">
+<h4 id="_explicitly_provide_an_iso_8601_timestamp_with_timezone_information">Explicitly provide an ISO 8601 timestamp with timezone information</h4>
+<div class="paragraph">
+<p>For API calls that allow for a timestamp to be specified, we use that exact timestamp. An example of this is the
+<a href="https://developer.github.com/v3/git/commits">Commits API</a>
+.</p>
+</div>
+<div class="paragraph">
+<p>These timestamps look something like <code>2014-02-27T15:05:06+01:00</code>. Also see
+<a href="https://developer.github.com/v3/git/commits/#example-input">this example</a>
+ for how these timestamps can be specified.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_using_the_time_zone_header">Using the <code>Time-Zone</code> header</h4>
+<div class="paragraph">
+<p>It is possible to supply a <code>Time-Zone</code> header which defines a timezone according to the
+<a href="https://en.wikipedia.org/wiki/List_of_tz_database_time_zones">list of names from the Olson database</a>
+.</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>curl -H "Time-Zone: Europe/Amsterdam" -X POST https://api.github.com/repos/github/linguist/contents/new_file.md</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This means that we generate a timestamp for the moment your API call is made in the timezone this header defines.
+For example, the
+<a href="https://developer.github.com/v3/repos/contents/">Contents API</a>
+ generates a git commit for each addition or change and uses the current time as the timestamp. This header will determine the timezone used for generating that current timestamp.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_using_the_last_known_timezone_for_the_user">Using the last known timezone for the user</h4>
+<div class="paragraph">
+<p>If no <code>Time-Zone</code> header is specified and you make an authenticated call to the API, we use the last known timezone for the authenticated user. The last known timezone is updated whenever you browse the GitHub website.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_utc">UTC</h4>
+<div class="paragraph">
+<p>If the steps above don&#8217;t result in any information, we use UTC as the timezone to create the git commit.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_activity">Activity</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>nothing</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_checks">Checks</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>nothing</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_gists">Gists</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>nothing</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_git_data">Git Data</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>nothing</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_github_apps">GitHub Apps</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>nothing</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_issues">Issues</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>nothing</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_migrations">Migrations</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>nothing</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_miscellaneous">Miscellaneous</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>nothing</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_organizations">Organizations</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>nothing</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_projects">Projects</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>nothing</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_pullrequests">PullRequests</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>nothing</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_reactions">Reactions</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>nothing</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_repositories">Repositories</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>nothing</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_search">Search</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>nothing</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_teams">Teams</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>nothing</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_scim">SCIM</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>nothing</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_users">Users</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>nothing</p>
+</div>
+</div>
+</div>
+</div>
+<div id="footer">
+<div id="footer-text">
+Last updated 2018-11-09 15:05:03 CST
+</div>
+</div>
+</body>
+</html>
